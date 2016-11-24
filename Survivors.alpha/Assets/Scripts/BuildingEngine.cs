@@ -43,7 +43,7 @@ public class BuildingEngine : MonoBehaviour
         {
             for (var x = 0; x < MapSize.x - 1; x++)
             {
-                _grid[x, y] = new BuildingSprite("unset", DefaultImage, Buildings.Unset);
+                _grid[x, y] = new BuildingSprite("Unset", DefaultImage, Buildings.Unset);
             }
         }
     }
@@ -111,12 +111,15 @@ public class BuildingEngine : MonoBehaviour
                     if (iX > MapSize.x - 2) continue;
                     if (iY > MapSize.y - 2) continue;
 
-                    var b = LeanPool.Spawn(BuildingPrefab);
-                    b.transform.position = new Vector3(tX, tY, 0);
-                    b.transform.SetParent(_buildingContainer.transform);
-                    var renderer = b.GetComponent<SpriteRenderer>();
-                    renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
-                    _buildings.Add(b);
+                    if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Unset")
+                    {
+                        var b = LeanPool.Spawn(BuildingPrefab);
+                        b.transform.position = new Vector3(tX, tY, 0);
+                        b.transform.SetParent(_buildingContainer.transform);
+                        var renderer = b.GetComponent<SpriteRenderer>();
+                        renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+                        _buildings.Add(b);
+                    }
                 }
             }
             else
@@ -134,12 +137,15 @@ public class BuildingEngine : MonoBehaviour
                     if (iX > MapSize.x - 2) continue;
                     if (iY > MapSize.y - 2) continue;
 
-                    var b = LeanPool.Spawn(BuildingPrefab);
-                    b.transform.position = new Vector3(tX, tY, 0);
-                    b.transform.SetParent(_buildingContainer.transform);
-                    var renderer = b.GetComponent<SpriteRenderer>();
-                    renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
-                    _buildings.Add(b);
+                    if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Unset")
+                    {
+                        var b = LeanPool.Spawn(BuildingPrefab);
+                        b.transform.position = new Vector3(tX, tY, 0);
+                        b.transform.SetParent(_buildingContainer.transform);
+                        var renderer = b.GetComponent<SpriteRenderer>();
+                        renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+                        _buildings.Add(b);
+                    }
                 }
             }
         }
