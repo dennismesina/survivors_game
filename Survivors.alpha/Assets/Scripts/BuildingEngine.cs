@@ -62,7 +62,6 @@ public class BuildingEngine : MonoBehaviour
             if (hospitals != 0)
             {
                 _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[3].Name, BuildingSprites[3].BuildingImage, BuildingSprites[3].BuildingType);
-
                 hospitals--;
             }
             else if (schools != 0)
@@ -118,6 +117,11 @@ public class BuildingEngine : MonoBehaviour
                         b.transform.SetParent(_buildingContainer.transform);
                         var renderer = b.GetComponent<SpriteRenderer>();
                         renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+                        var boxCollider = b.AddComponent<BoxCollider2D>();
+                        var spriteWidth = (int)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width;
+                        var spriteHeight = (int)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height;
+                        var spritesize = new Vector2 (spriteWidth, spriteHeight);
+                        boxCollider.size = spritesize;
                         _buildings.Add(b);
                     }
                 }
@@ -144,6 +148,11 @@ public class BuildingEngine : MonoBehaviour
                         b.transform.SetParent(_buildingContainer.transform);
                         var renderer = b.GetComponent<SpriteRenderer>();
                         renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+                        var boxCollider = b.AddComponent<BoxCollider2D>();
+                        var spriteWidth = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width/100;
+                        var spriteHeight = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height/100;
+                        var spritesize = new Vector2(spriteWidth, spriteHeight);
+                        boxCollider.size = spritesize;
                         _buildings.Add(b);
                     }
                 }
