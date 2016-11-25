@@ -7,5 +7,10 @@ public enum Tiles
     Grass,
     Dgrass,
     StreetL,
-    StreetR
+    StreetR,
+    StreetL2,
+    StreetR2,
+    Troad1,
+    Troad2,
+    TroadX
 }

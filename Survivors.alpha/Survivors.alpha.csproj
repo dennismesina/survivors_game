@@ -69,6 +69,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GUI\IdleScript.cs" />
+    <Compile Include="Assets\GUI\UpdateSurvivor.cs" />
     <Compile Include="Assets\LeanPool\Examples\SimpleDelayedPooling.cs" />
     <Compile Include="Assets\LeanPool\Examples\SimplePoolBenchmark.cs" />
     <Compile Include="Assets\LeanPool\Examples\SimplePooling.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="Assets\Scripts\TileSprite.cs" />
     <Compile Include="Assets\Scripts\Tiles.cs" />
     <Compile Include="Assets\Scripts\TilingEngine.cs" />
+    <Compile Include="Assets\SurvivorController.cs" />
+    <Compile Include="Assets\checkMouseClicks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />

@@ -15,6 +15,7 @@ public class TilingEngine : MonoBehaviour
     private float tileWidth = 2.55f;
     private float tileHeight = .91f;
 
+    private int[,] _mapInts;
     private TileSprite[,] _map;
     private GameObject controller;
     private GameObject _tileContainer;
@@ -32,6 +33,7 @@ public class TilingEngine : MonoBehaviour
 
     private void DefaultTiles()
     {
+        _mapInts = new int[(int)MapSize.x, (int)MapSize.y]; //For refactoring - try to connect ints to map, then initialize by going through ints. -Dennis
         for (var y = 0; y < MapSize.y - 1; y++)
         {
             for (var x = 0; x < MapSize.x - 1; x++)
@@ -43,6 +45,10 @@ public class TilingEngine : MonoBehaviour
 
     private void SetTiles()
     {
+        var tinyRoad1x = 10;
+        var tinyRoad2x = 5;
+        var tinyRoad3x = 22;
+        bool tophalf = false;
         for (var y = 0; y < MapSize.y - 1; y++)
         {
             if (y % 2 == 1)
@@ -60,27 +66,125 @@ public class TilingEngine : MonoBehaviour
                 }
             }
         }
-        int random = (int) Random.Range(1, ViewPortSize.x - 1);
-        for (var y = 0; y < MapSize.y - 1; y++)
+        int centerRight =  (int) ViewPortSize.x/2; //(int) Random.Range(1, ViewPortSize.x - 1);
+        int centerLeft = (int)ViewPortSize.x / 2;
+        for (var y = 0; y < MapSize.y - 1; y++) //this loop for setting roads
         {
-            if (y % 2 == 1)
+            if (!tophalf)
             {
-                if (random + y < MapSize.x - 1)
+                if (y % 2 == 1)
                 {
-                    _map[random, y] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
-                    _map[random + 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    if (centerRight < (int)MapSize.y / 2)
+                    {
+                        _map[centerRight - 2, y + 1] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
+                        _map[centerRight - 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    }
+                    if (centerLeft >= 1)
+                    {
+                        _map[centerLeft - 1, y] = new TileSprite(TileSprites[4].Name, TileSprites[4].TileImage, TileSprites[4].TileType);
+                        _map[centerLeft, y] = new TileSprite(TileSprites[5].Name, TileSprites[5].TileImage, TileSprites[5].TileType);
+                    }
+                    else
+                    {
+                        tophalf = true;
+                    }
+                    centerLeft--;
+                }
+                else
+                {
+                    if (centerRight < (int)MapSize.y / 2)
+                    {
+                        _map[centerRight - 1, y + 1] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
+                        _map[centerRight - 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    }
+                    if (centerLeft >= 1)
+                    {
+                        _map[centerLeft - 1, y] = new TileSprite(TileSprites[4].Name, TileSprites[4].TileImage, TileSprites[4].TileType);
+                        _map[centerLeft, y] = new TileSprite(TileSprites[5].Name, TileSprites[5].TileImage, TileSprites[5].TileType);
+                    }
+                    else
+                    {
+                        tophalf = true;
+                    }
+                    centerRight++;
                 }
             }
             else
             {
-                if (random + y < MapSize.x - 1)
+                if (y % 2 == 1)
                 {
-                    _map[random, y] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
-                    _map[random + 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    if (centerLeft <= (int)MapSize.x/2)
+                    {
+                        _map[centerLeft, y] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
+                        _map[centerLeft + 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    }
+                    if (centerRight >= (int)MapSize.x/2)
+                    {
+                        _map[centerRight - 2, y-2] = new TileSprite(TileSprites[4].Name, TileSprites[4].TileImage, TileSprites[4].TileType);
+                        _map[centerRight - 2, y] = new TileSprite(TileSprites[5].Name, TileSprites[5].TileImage, TileSprites[5].TileType);
+                    }
+                    centerRight--;
                 }
-                random++;
+                else
+                {
+                    if (centerLeft < (int)MapSize.x / 2)
+                    {
+                        _map[centerLeft, y] = new TileSprite(TileSprites[2].Name, TileSprites[2].TileImage, TileSprites[2].TileType);
+                        _map[centerLeft + 1, y] = new TileSprite(TileSprites[3].Name, TileSprites[3].TileImage, TileSprites[3].TileType);
+                    }
+                    if (centerRight >= (int)MapSize.x / 2)
+                    {
+                        _map[centerRight - 2, y-2] = new TileSprite(TileSprites[4].Name, TileSprites[4].TileImage, TileSprites[4].TileType);
+                        _map[centerRight - 2, y] = new TileSprite(TileSprites[5].Name, TileSprites[5].TileImage, TileSprites[5].TileType);
+                    }
+                    centerLeft++;
+                }
+            }
+            if (y > 13 && y < 43) //this loop for tiny road1
+            {
+                if (y % 2 == 0)
+                {
+                    _map[tinyRoad1x, y] = new TileSprite(TileSprites[6].Name, TileSprites[6].TileImage, TileSprites[6].TileType);
+                }
+                else
+                {
+                    _map[tinyRoad1x + 1, y] = new TileSprite(TileSprites[6].Name, TileSprites[6].TileImage, TileSprites[6].TileType);
+                    tinyRoad1x++;
+                }
+            }
+            if(y > 22 && y < 52) //this loop for tiny road1
+            {
+                if (y % 2 == 0)
+                {
+                    _map[tinyRoad2x, y] = new TileSprite(TileSprites[6].Name, TileSprites[6].TileImage, TileSprites[6].TileType);
+                }
+                else
+                {
+                    _map[tinyRoad2x + 1, y] = new TileSprite(TileSprites[6].Name, TileSprites[6].TileImage, TileSprites[6].TileType);
+                    tinyRoad2x++;
+                }
+            }
+            if (y > 15 && y < 45) //this loop for tiny road1
+            {
+                if (y % 2 == 0)
+                {
+                    _map[tinyRoad3x - 1, y] = new TileSprite(TileSprites[7].Name, TileSprites[7].TileImage, TileSprites[7].TileType);
+                    tinyRoad3x--;
+                }
+                else
+                {
+                    _map[tinyRoad3x, y] = new TileSprite(TileSprites[7].Name, TileSprites[7].TileImage, TileSprites[7].TileType);
+                }
             }
         }
+        _map[22, 15] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[10, 13] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[5, 22] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[16, 26] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[12, 35] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[20, 52] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[25, 43] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
+        _map[7, 45] = new TileSprite(TileSprites[8].Name, TileSprites[8].TileImage, TileSprites[8].TileType);
     }
 
     private void Update()
