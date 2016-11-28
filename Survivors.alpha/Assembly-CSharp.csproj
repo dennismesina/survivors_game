@@ -62,7 +62,10 @@
      <Compile Include="Assets\Scripts\Tiles.cs" />
      <Compile Include="Assets\Scripts\TilingEngine.cs" />
      <Compile Include="Assets\SurvivorController.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\ZombieMove.cs" />
+=======
+>>>>>>> 4b9da87b9e65fdbcc5c5ab7ec0570cf665f8b3a5
      <Compile Include="Assets\checkMouseClicks.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
