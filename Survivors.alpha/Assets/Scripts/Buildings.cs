@@ -7,5 +7,6 @@ public enum Buildings
     House,
     School,
     Office,
-    Hospital
+    Hospital,
+    Taken
 }

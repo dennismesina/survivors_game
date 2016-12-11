@@ -29,7 +29,6 @@ public class BuildingEngine : MonoBehaviour
 
         InitializeGrid();
         SetBuildings();
-        //_grid[(int)FindCoordForIsoX(1, 1), (int)FindCoordForIsoY(1, 1)] = new BuildingSprite(BuildingSprites[0].Name, BuildingSprites[0].BuildingImage, BuildingSprites[0].BuildingType);
         PlaceBuildings();
     }
 
@@ -52,34 +51,110 @@ public class BuildingEngine : MonoBehaviour
     public void SetBuildings()
     {
         var buildingCounter = totalBuildings;
-        var hospitals = totalBuildings / 20;
-        var schools = totalBuildings / 10;
-        var offices = totalBuildings / 5;
+        int hospitals = totalBuildings / 20;
+        int schools = totalBuildings / 10;
+        int offices = totalBuildings / 5;
         locations = new Vector2[totalBuildings];
         while (buildingCounter != 0)
         {
-            int randomSpawnPointx = Random.Range(0,(int)MapSize.x - 1);
-            int randomSpawnPointy = Random.Range(0,(int)MapSize.y - 1);
             if (hospitals != 0)
             {
-                _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[3].Name, BuildingSprites[3].BuildingImage, BuildingSprites[3].BuildingType);
-                hospitals--;
+                int randomSpawnPointx = Random.Range(0, (int)MapSize.x - 4);
+                int randomSpawnPointy = Random.Range(0, (int)MapSize.y - 3);
+                if ((_grid[randomSpawnPointx, randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 2)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 2)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), (randomSpawnPointy + 2)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 3), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 3), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 3), (randomSpawnPointy + 2)].BuildingType == Buildings.Unset))
+                {
+                    _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[3].Name, BuildingSprites[3].BuildingImage, BuildingSprites[3].BuildingType);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 3), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 3), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 3), (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    hospitals--;
+                    buildingCounter--;
+                }
             }
             else if (schools != 0)
             {
-                _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[2].Name, BuildingSprites[2].BuildingImage, BuildingSprites[2].BuildingType);
-                schools--;
+                int randomSpawnPointx = Random.Range(0, (int)MapSize.x - 3);
+                int randomSpawnPointy = Random.Range(0, (int)MapSize.y - 2);
+                if ((_grid[randomSpawnPointx, randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset))
+                {
+                    _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[2].Name, BuildingSprites[2].BuildingImage, BuildingSprites[2].BuildingType);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    schools--;
+                    buildingCounter--;
+                }
             }
             else if (offices != 0)
             {
-                _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[1].Name, BuildingSprites[1].BuildingImage, BuildingSprites[1].BuildingType);
-                offices--;
+                int randomSpawnPointx = Random.Range(0, (int)MapSize.x - 3);
+                int randomSpawnPointy = Random.Range(0, (int)MapSize.y - 3);
+                if ((_grid[randomSpawnPointx, randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 2)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 2), (randomSpawnPointy + 2)].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 2)].BuildingType == Buildings.Unset))
+                {
+                    _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[1].Name, BuildingSprites[1].BuildingImage, BuildingSprites[1].BuildingType);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 2), (randomSpawnPointy + 2)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    offices--;
+                    buildingCounter--;
+                }
             }
             else
             {
-                _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[0].Name, BuildingSprites[0].BuildingImage, BuildingSprites[0].BuildingType);
+                int randomSpawnPointx = Random.Range(0, (int)MapSize.x - 2);
+                int randomSpawnPointy = Random.Range(0, (int)MapSize.y - 2);
+                if ((_grid[randomSpawnPointx, randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), randomSpawnPointy].BuildingType == Buildings.Unset)
+                    && (_grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)].BuildingType == Buildings.Unset)
+                    && (_grid[randomSpawnPointx, (randomSpawnPointy + 1)].BuildingType == Buildings.Unset))
+                {
+                    _grid[randomSpawnPointx, randomSpawnPointy] = new BuildingSprite(BuildingSprites[0].Name, BuildingSprites[0].BuildingImage, BuildingSprites[0].BuildingType);
+                    _grid[(randomSpawnPointx + 1), randomSpawnPointy] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[randomSpawnPointx, (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    _grid[(randomSpawnPointx + 1), (randomSpawnPointy + 1)] = new BuildingSprite("Taken", DefaultImage, Buildings.Taken);
+                    buildingCounter--;
+                }
+
             }
-            buildingCounter--;
         }
     }
 
@@ -96,70 +171,34 @@ public class BuildingEngine : MonoBehaviour
         var viewOffsetY = ViewPortSize.y / 2f;
         for (var y = -viewOffsetY; y < viewOffsetY; y++)
         {
-            if (y % 2 == 0)
+            for (var x = -viewOffsetX; x < viewOffsetX; x++)
             {
-                for (var x = -viewOffsetX; x < viewOffsetX; x++)
+                var tX = x * tileWidth;
+                var tY = y * tileHeight;
+
+                var iX = x + CurrentPosition.x;
+                var iY = y + CurrentPosition.y;
+
+                if (iX < 0) continue;
+                if (iY < 0) continue;
+                if (iX > MapSize.x - 2) continue;
+                if (iY > MapSize.y - 2) continue;
+
+                if ((_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Unset")
+                    && (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Taken"))
                 {
-                    var tX = x * tileWidth;
-                    var tY = y * tileHeight;
-
-                    var iX = x + CurrentPosition.x;
-                    var iY = y + CurrentPosition.y;
-
-                    if (iX < 0) continue;
-                    if (iY < 0) continue;
-                    if (iX > MapSize.x - 2) continue;
-                    if (iY > MapSize.y - 2) continue;
-
-                    if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Unset")
-                    {
-                        var b = LeanPool.Spawn(BuildingPrefab);
-                        b.transform.position = new Vector3(tX, tY, 0);
-                        b.transform.SetParent(_buildingContainer.transform);
-                        var renderer = b.GetComponent<SpriteRenderer>();
-                        renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
-                        var boxCollider = b.AddComponent<BoxCollider2D>();
-                        var spriteWidth = (int)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width;
-                        var spriteHeight = (int)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height;
-                        var spritesize = new Vector2 (spriteWidth, spriteHeight);
-                        boxCollider.size = spritesize;
-                        _buildings.Add(b);
-                    }
-                    else
-                    {
-                        
-                    }
-                }
-            }
-            else
-            {
-                for (var x = -viewOffsetX + 1; x < viewOffsetX; x++)
-                {
-                    var tX = (x - .5f) * tileWidth;
-                    var tY = y * tileHeight;
-
-                    var iX = x + CurrentPosition.x;
-                    var iY = y + CurrentPosition.y;
-
-                    if (iX < 0) continue;
-                    if (iY < 0) continue;
-                    if (iX > MapSize.x - 2) continue;
-                    if (iY > MapSize.y - 2) continue;
-
-                    if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name != "Unset")
-                    {
-                        var b = LeanPool.Spawn(BuildingPrefab);
-                        b.transform.position = new Vector3(tX, tY, 0);
-                        b.transform.SetParent(_buildingContainer.transform);
-                        var renderer = b.GetComponent<SpriteRenderer>();
-                        renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
-                        var boxCollider = b.AddComponent<BoxCollider2D>();
-                        //var spriteWidth = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width/100;
-                        //var spriteHeight = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height/100;
-                        //var spritesize = new Vector2(spriteWidth, spriteHeight);
-                        //boxCollider.size = spritesize;
-                        _buildings.Add(b);
-                    }
+                    var b = LeanPool.Spawn(BuildingPrefab);
+                    b.transform.position = new Vector3(tX, tY, 0);
+                    b.transform.SetParent(_buildingContainer.transform);
+                    var renderer = b.GetComponent<SpriteRenderer>();
+                    renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+                    b.AddComponent<BoxCollider2D>();
+                    var boxCollider = b.GetComponent<BoxCollider2D>();
+                    float spriteWidth = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width / 100;
+                    float spriteHeight = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height / 100;
+                    var spritesize = new Vector2(spriteWidth, spriteHeight);
+                    boxCollider.size = spritesize;
+                    _buildings.Add(b);
                 }
             }
         }

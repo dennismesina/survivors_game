@@ -81,11 +81,14 @@
     <Compile Include="Assets\Scripts\BuildingEngine.cs" />
     <Compile Include="Assets\Scripts\BuildingSprite.cs" />
     <Compile Include="Assets\Scripts\Buildings.cs" />
+    <Compile Include="Assets\Scripts\MouseEdgeDetect.cs" />
     <Compile Include="Assets\Scripts\TileSprite.cs" />
     <Compile Include="Assets\Scripts\Tiles.cs" />
     <Compile Include="Assets\Scripts\TilingEngine.cs" />
     <Compile Include="Assets\SurvivorController.cs" />
+    <Compile Include="Assets\ZombieMove.cs" />
     <Compile Include="Assets\checkMouseClicks.cs" />
+    <Compile Include="Assets\sqTileEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
