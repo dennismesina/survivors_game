@@ -40,13 +40,14 @@ public class SurvivorController : MonoBehaviour {
                     attackRate = startingAttackRate;
                 }
             }
+            attack = false;
         }
         else if(scavenge)
         {
             secure = false;
             var building = FindClosest("Building");
-            float x = transform.position.x;
-            float y = transform.position.y;
+            float x = building.transform.position.x;
+            float y = building.transform.position.y;
             var mouse = Camera.main.GetComponent<checkMouseClicks>();
             if(Input.GetMouseButtonUp(0))
             {

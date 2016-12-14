@@ -20,7 +20,6 @@ public class AggroRadius : MonoBehaviour {
     {
         var zombie = other.gameObject.GetComponent<ZombieMove>();
         zombie.aggro = true;
-        gameObject.GetComponent<SurvivorController>().attack = true;
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -28,5 +27,12 @@ public class AggroRadius : MonoBehaviour {
         var zombie = other.gameObject.GetComponent<ZombieMove>();
         zombie.aggro = false;
         gameObject.GetComponent<SurvivorController>().attack = false;
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        var zombie = other.gameObject.GetComponent<ZombieMove>();
+        if (other.tag == "Zombie")
+            gameObject.GetComponent<SurvivorController>().attack = true;
     }
 }
