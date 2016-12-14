@@ -78,17 +78,20 @@
     <Compile Include="Assets\LeanPool\Scripts\LeanPool.cs" />
     <Compile Include="Assets\LeanPool\Scripts\LeanPooledRigidbody.cs" />
     <Compile Include="Assets\LeanPool\Scripts\LeanPooledRigidbody2D.cs" />
+    <Compile Include="Assets\Scripts\AggroRadius.cs" />
     <Compile Include="Assets\Scripts\BuildingEngine.cs" />
     <Compile Include="Assets\Scripts\BuildingSprite.cs" />
     <Compile Include="Assets\Scripts\Buildings.cs" />
     <Compile Include="Assets\Scripts\MouseEdgeDetect.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\SpawnController.cs" />
+    <Compile Include="Assets\Scripts\SurvivorController.cs" />
     <Compile Include="Assets\Scripts\TileSprite.cs" />
     <Compile Include="Assets\Scripts\Tiles.cs" />
     <Compile Include="Assets\Scripts\TilingEngine.cs" />
-    <Compile Include="Assets\SurvivorController.cs" />
-    <Compile Include="Assets\ZombieMove.cs" />
-    <Compile Include="Assets\checkMouseClicks.cs" />
-    <Compile Include="Assets\sqTileEngine.cs" />
+    <Compile Include="Assets\Scripts\ZombieMove.cs" />
+    <Compile Include="Assets\Scripts\checkMouseClicks.cs" />
+    <Compile Include="Assets\Scripts\sqTileEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />

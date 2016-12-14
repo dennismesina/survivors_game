@@ -122,6 +122,7 @@ public class SurvivorController : MonoBehaviour {
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag(obj);
         GameObject closest = null;
+        GameObject nextclosest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
         foreach (GameObject go in gos)
@@ -130,10 +131,11 @@ public class SurvivorController : MonoBehaviour {
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
             {
+                nextclosest = closest;
                 closest = go;
                 distance = curDistance;
             }
         }
-        return closest;
+        return nextclosest;
     }
 }
