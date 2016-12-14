@@ -3,14 +3,42 @@ using System.Collections;
 
 public class ZombieMove : MonoBehaviour
 {
-    public float hspeed = 1;
-    public float speed = .3f;
+    public float startingspeed = .1f;
+    public float maxspeed = .5f;
     public bool aggro = false;
+    public bool avoid = false;
+
+    private float randomX;
+    private float randomY;
+    private Vector2 destination;
+    private float speed;
 
     // Use this for initialization
     void Start()
     {
+        randomX = Random.Range(-30, 30);
+        randomY = Random.Range(-23, 23);
 
+        if (transform.position.y < 0)
+        {
+            destination.y = 30 * 1.28f;
+            destination.x = randomX * 1.28f;
+        }
+        else
+        {
+            destination.y = -30 * 1.28f;
+            destination.x = randomX * 1.28f;
+        }
+        if (transform.position.x < 0)
+        {
+            destination.x = 23 * 1.28f;
+            destination.y = randomY * 1.28f;
+        }
+        else
+        {
+            destination.x = -23 * 1.28f;
+            destination.y = randomY * 1.28f;
+        }
     }
 
     // Update is called once per frame
@@ -18,51 +46,70 @@ public class ZombieMove : MonoBehaviour
     {
         if (aggro)
         {
-            Aggro();
+            var name = "Survivor";
+            var survivor = FindClosest(name);
+            speed = maxspeed;
+            walk(survivor.transform.position.x, survivor.transform.position.y);
+        }
+        else if (avoid)
+        {
+            var name = "Building";
+            var building = FindClosest(name);
+            speed = startingspeed;
+            walkaway(building.transform.position.x, building.transform.position.y);
         }
         else
         {
-            walk();
+            speed = startingspeed;
+            walk(destination.x, destination.y);
         }
     }
 
-    void walk()
+    void walk(float x, float y)
     {
-        gameObject.transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
-    }
-
-    void face(GameObject trigger)
-    {
-        Quaternion newRotation = Quaternion.LookRotation(trigger.transform.position - gameObject.transform.position);
-    }
-
-    void Aggro()
-    {
-        var survivor = FindClosestEnemy();
-        speed = 1.5f;
-        if (survivor.transform.position.x < transform.position.x)
+        if (x + 1 <= transform.position.x)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
         }
-        else if (survivor.transform.position.x > transform.position.x)
+        else if (x - 1 > transform.position.x)
         {
             transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
         }
-        if(survivor.transform.position.y - 1 < transform.position.y)
+        if (y + 1 <= transform.position.y)
         {
             transform.Translate(Vector3.down * Time.deltaTime, Space.World);
         }
-        else if (survivor.transform.position.y + 1 > transform.position.y)
+        else if (y - 1 > transform.position.y)
+        {
+            transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+        }
+    }
+
+    void walkaway(float x, float y)
+    {
+        if (x - 2 >= transform.position.x)
+        {
+            transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
+        }
+        else if (x + 2 < transform.position.x)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
+        }
+        if (y - 2 > transform.position.y)
+        {
+            transform.Translate(Vector3.down * Time.deltaTime, Space.World);
+        }
+        else if (y + 2 < transform.position.y)
         {
             transform.Translate(Vector3.up * Time.deltaTime, Space.World);
         }
     }
 
     // Find the name of the closest enemy
-    GameObject FindClosestEnemy()
+    GameObject FindClosest(string obj)
     {
         GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Survivor");
+        gos = GameObject.FindGameObjectsWithTag(obj);
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;

@@ -204,10 +204,39 @@ public class BuildingEngine : MonoBehaviour
                     var rigidBody = b.GetComponent<Rigidbody2D>();
                     rigidBody.isKinematic = true;
 
+                    //var c = LeanPool.Spawn(BuildingPrefab);
+                    //c.transform.position = new Vector3(tX, tY, 0);
+                    b.AddComponent<CircleCollider2D>();
+                    var avoidRadius = b.GetComponent<CircleCollider2D>();
+                    avoidRadius.isTrigger = true;
+                    var multiplier = 1.815f;
+                    if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name == "House")
+                        multiplier = multiplier * 1;
+                    else if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name == "School")
+                        multiplier = multiplier * 1.5f;
+                    else if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name == "Office")
+                        multiplier = multiplier * 1.5f;
+                    else if (_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].Name == "Hospital")
+                        multiplier = multiplier * 2;
+                    avoidRadius.radius = multiplier;
+
+                    b.tag = "Building";
+
                     _buildings.Add(b);
                 }
             }
         }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        var zombie = other.gameObject.GetComponent<ZombieMove>();
+        zombie.avoid = true;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        var zombie = other.gameObject.GetComponent<ZombieMove>();
+        zombie.avoid = false;
     }
     private BuildingSprite FindBuilding(Buildings building)
     {
