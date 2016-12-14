@@ -192,12 +192,18 @@ public class BuildingEngine : MonoBehaviour
                     b.transform.SetParent(_buildingContainer.transform);
                     var renderer = b.GetComponent<SpriteRenderer>();
                     renderer.sprite = _grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage;
+
                     b.AddComponent<BoxCollider2D>();
                     var boxCollider = b.GetComponent<BoxCollider2D>();
                     float spriteWidth = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.width / 100;
                     float spriteHeight = (float)_grid[(int)x + (int)CurrentPosition.x, (int)y + (int)CurrentPosition.y].BuildingImage.rect.height / 100;
                     var spritesize = new Vector2(spriteWidth, spriteHeight);
                     boxCollider.size = spritesize;
+
+                    b.AddComponent<Rigidbody2D>();
+                    var rigidBody = b.GetComponent<Rigidbody2D>();
+                    rigidBody.isKinematic = true;
+
                     _buildings.Add(b);
                 }
             }

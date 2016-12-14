@@ -15,7 +15,6 @@ public class sqTileEngine : MonoBehaviour {
     private float tileWidth = 1.28f;
     private float tileHeight = 1.28f;
 
-    private int[,] _mapInts;
     private TileSprite[,] _map;
     private GameObject controller;
     private GameObject _tileContainer;
@@ -33,7 +32,6 @@ public class sqTileEngine : MonoBehaviour {
 
     private void DefaultTiles()
     {
-        _mapInts = new int[(int)MapSize.x, (int)MapSize.y]; //For refactoring - try to connect ints to map, then initialize by going through ints. -Dennis
         for (var y = 0; y < MapSize.y - 1; y++)
         {
             for (var x = 0; x < MapSize.x - 1; x++)
