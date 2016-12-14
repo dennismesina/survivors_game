@@ -117,6 +117,7 @@ public class SurvivorController : MonoBehaviour {
         }
         return closest;
     }
+
     GameObject FindNextClosest(string obj)
     {
         GameObject[] gos;
