@@ -19,7 +19,7 @@ public class ZombieMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        attackRate = startingAttackRate;
     }
 
     // Update is called once per frame

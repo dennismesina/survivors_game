@@ -19,6 +19,7 @@ public class SurvivorController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         speed = startingspeed;
+        attackRate = startingAttackRate;
 	}
 	
 	// Update is called once per frame
@@ -89,10 +90,10 @@ public class SurvivorController : MonoBehaviour {
         {
             transform.Translate(Vector3.up * Time.deltaTime, Space.World);
         }
-        if ((x + 1 == transform.position.x || x - 1 == transform.position.x) && (y + 1 == transform.position.y || y - 1 > transform.position.y))
-        {
-            idle = true;
-        }
+        //if ((x + 1 == transform.position.x || x - 1 == transform.position.x) && (y + 1 == transform.position.y || y - 1 > transform.position.y))
+        //{
+        //    idle = true;
+        //}
     }
 
     void setDestination(GameObject obj)
