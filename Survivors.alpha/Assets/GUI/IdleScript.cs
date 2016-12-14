@@ -6,8 +6,8 @@ public class IdleScript : MonoBehaviour {
 
 	public Text Idle_count_text;
 
-	public int Idle;
-	public int Total;
+	public int Idle = 0;
+	public int Total = 0;
 
 	public void display(){
 		Idle_count_text.text = "Survivors Idle: " + Idle + " of " + Total;
@@ -22,11 +22,23 @@ public class IdleScript : MonoBehaviour {
 	}
 
 	public int get_total(){
-		return Total;
-	}
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Survivor");
+        int Total = 0;
+        foreach (GameObject go in gos)
+        {
+            Total++;
+        }
+        return Total;
+    }
 
-	public void set_total(int T){
-		Total = T;
-	}
-		
+	public void set_total(){
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Survivor");
+        int Total = 0;
+        foreach (GameObject go in gos)
+        {
+            Total++;
+        }
+    }
 }

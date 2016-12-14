@@ -26,7 +26,12 @@ public class SpawnController : MonoBehaviour {
 
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-	}
+        for (int i = 0; i < spawnPointIndex; i++)
+        {
+            enemy.GetComponent<ZombieMove>().randomX = Random.Range(-30, 30);
+            enemy.GetComponent<ZombieMove>().randomY = Random.Range(-23, 23);
+        }
+    }
 
 	void Update() {
 		int spawnPointIndex = Random.Range (0, spawnPoints.Length);

@@ -34,7 +34,7 @@ public class UpdateSurvivor : MonoBehaviour {
 	{
 		IdleScript sn = Idle_count_text.GetComponent<IdleScript> ();
 		sn.set_idle (Idle);
-		sn.set_total (TotalSurv);
+		sn.set_total ();
 	}
 //============================================================	
 	/* Initialize functions if we want to add/subtract a survivor 

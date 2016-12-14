@@ -54,20 +54,19 @@
      <Compile Include="Assets\LeanPool\Scripts\LeanPool.cs" />
      <Compile Include="Assets\LeanPool\Scripts\LeanPooledRigidbody.cs" />
      <Compile Include="Assets\LeanPool\Scripts\LeanPooledRigidbody2D.cs" />
-     <Compile Include="Assets\Scripts\AggroRadius.cs" />
      <Compile Include="Assets\Scripts\BuildingEngine.cs" />
      <Compile Include="Assets\Scripts\BuildingSprite.cs" />
      <Compile Include="Assets\Scripts\Buildings.cs" />
      <Compile Include="Assets\Scripts\MouseEdgeDetect.cs" />
-     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
-     <Compile Include="Assets\Scripts\SpawnController.cs" />
-     <Compile Include="Assets\Scripts\SurvivorController.cs" />
      <Compile Include="Assets\Scripts\TileSprite.cs" />
      <Compile Include="Assets\Scripts\Tiles.cs" />
      <Compile Include="Assets\Scripts\TilingEngine.cs" />
-     <Compile Include="Assets\Scripts\ZombieMove.cs" />
-     <Compile Include="Assets\Scripts\checkMouseClicks.cs" />
-     <Compile Include="Assets\Scripts\sqTileEngine.cs" />
+     <Compile Include="Assets\SurvivorController.cs" />
+<<<<<<< HEAD
+     <Compile Include="Assets\ZombieMove.cs" />
+=======
+>>>>>>> 4b9da87b9e65fdbcc5c5ab7ec0570cf665f8b3a5
+     <Compile Include="Assets\checkMouseClicks.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

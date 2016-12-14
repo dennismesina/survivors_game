@@ -5,14 +5,15 @@ public class SurvivorController : MonoBehaviour {
 
     public float startingspeed = 2.0f;
     public float maxspeed = 4.0f;
-    public bool idle = true;
+    public bool idle = false;
     public bool scavenge = false;
     public bool secure = false;
     public bool attack = false;
     public bool dead = false;
+    public float attackRate;
+    public float startingAttackRate = 0.5f;
     private bool wasClicked = false;
     private Vector2 destination;
-    private bool arrived = true;
     private float speed;
 
     // Use this for initialization
@@ -23,52 +24,74 @@ public class SurvivorController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         OnGUI();
-        if(scavenge)
+        if(attack)
+        {
+            var name = "Zombie";
+            var zombie = FindClosest(name);
+            speed = maxspeed;
+            walk(zombie.transform.position.x, zombie.transform.position.y);
+            if (Vector3.Distance(transform.position, zombie.transform.position) < 2)
+            {
+                attackRate -= Time.deltaTime;
+                if (attackRate < 0)
+                {
+                    zombie.GetComponent<PlayerHealth>().TakeDamage(15);
+                    attackRate = startingAttackRate;
+                }
+            }
+        }
+        else if(scavenge)
         {
             secure = false;
             var building = FindClosest("Building");
-            walk(building.transform.position.x, building.transform.position.y);
-        }
-        if (idle)
-        {
-            float randomX = Random.Range(transform.position.x - 2, transform.position.x + 2);
-            float randomY = Random.Range(transform.position.y - 1, transform.position.y + 1);
-            for (int i = 0; i < 20; i++)
+            float x = transform.position.x;
+            float y = transform.position.y;
+            var mouse = Camera.main.GetComponent<checkMouseClicks>();
+            if(Input.GetMouseButtonUp(0))
             {
-                walk(randomX, randomY);
-                if (!idle)
-                    return;
+                building = mouse.ClickSelect();
             }
+            if(building.tag == "Building")
+            {
+                x = building.transform.position.x;
+                y = building.transform.position.y;
+            }
+            walk(x, y);
+        }
+        else if (idle)
+        {
+            //float randomX = Random.Range(transform.position.x - 2, transform.position.x + 2);
+            //float randomY = Random.Range(transform.position.y - 1, transform.position.y + 1);
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    walk(randomX, randomY);
+            //    if (!idle)
+            //        return;
+            //}
         }
 	}
 
     void walk(float x, float y)
     {
-        idle = false;
-        arrived = false;
-        if (!arrived)
+        if (x + 1 <= transform.position.x)
         {
-            if (x + 1 <= transform.position.x)
-            {
-                transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
-            }
-            else if (x - 1 > transform.position.x)
-            {
-                transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
-            }
-            if (y + 1 <= transform.position.y)
-            {
-                transform.Translate(Vector3.down * Time.deltaTime, Space.World);
-            }
-            else if (y - 1 > transform.position.y)
-            {
-                transform.Translate(Vector3.up * Time.deltaTime, Space.World);
-            }
-            if ((x + 1 == transform.position.x || x - 1 == transform.position.x) && (y + 1 == transform.position.y || y - 1 > transform.position.y))
-            {
-                arrived = true;
-                idle = true;
-            }
+            transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
+        }
+        else if (x - 1 > transform.position.x)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
+        }
+        if (y + 1 <= transform.position.y)
+        {
+            transform.Translate(Vector3.down * Time.deltaTime, Space.World);
+        }
+        else if (y - 1 > transform.position.y)
+        {
+            transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+        }
+        if ((x + 1 == transform.position.x || x - 1 == transform.position.x) && (y + 1 == transform.position.y || y - 1 > transform.position.y))
+        {
+            idle = true;
         }
     }
 
